@@ -1,0 +1,33 @@
+# Flujo de GitHub Actions: ejecuta el sistema Software FJ en la nube de GitHub
+name: Ejecutar Software FJ
+
+# Se ejecuta en cada push a main y tambien manualmente desde la pestana Actions
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  ejecutar:
+    runs-on: ubuntu-latest
+    steps:
+      # Descarga el codigo del repositorio
+      - name: Descargar codigo
+        uses: actions/checkout@v4
+      # Instala Python 3.12
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      # Ejecuta las 12 simulaciones del programa principal
+      - name: Ejecutar simulaciones (python main.py)
+        run: python main.py
+      # Muestra el archivo de logs generado
+      - name: Mostrar archivo de logs
+        run: cat software_fj.log
+      # Guarda el log como artefacto descargable
+      - name: Guardar log como artefacto
+        uses: actions/upload-artifact@v4
+        with:
+          name: software_fj-log
+          path: software_fj.log
