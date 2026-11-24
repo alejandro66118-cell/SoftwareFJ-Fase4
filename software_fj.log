@@ -1,0 +1,116 @@
+2026-11-23 22:29:14,513 | INFO     | main | ========== INICIO DE EJECUCION SOFTWARE FJ ==========
+2026-11-23 22:29:14,513 | INFO     | main | === Simulacion 1: Registro de clientes validos ===
+2026-11-23 22:29:14,513 | INFO     | entidades | Cliente registrado: Ana Torres (doc 1023456789)
+2026-11-23 22:29:14,513 | INFO     | entidades | Cliente registrado: Luis Pardo (doc 80123456)
+2026-11-23 22:29:14,513 | INFO     | main | === Simulacion 2: Registro de clientes invalidos ===
+2026-11-23 22:29:14,513 | ERROR    | sistema | Registrar cliente Carlos Ruiz FALLIDA -> [FJ-100] Dato invalido en 'correo': formato no valido (carlos-arroba-mail)
+2026-11-23 22:29:14,513 | ERROR    | sistema | Registrar cliente Maria Gil FALLIDA -> [FJ-100] Dato invalido en 'documento': debe tener entre 6 y 10 digitos
+2026-11-23 22:29:14,513 | ERROR    | sistema | Registrar cliente None FALLIDA -> [FJ-110] Falta el parametro obligatorio 'nombre'
+2026-11-23 22:29:14,513 | INFO     | main | === Simulacion 3: Creacion correcta de servicios ===
+2026-11-23 22:29:14,514 | INFO     | servicios | Servicio creado: Sala 'Sala Bogota' (cap. 12) - $80,000/h
+2026-11-23 22:29:14,514 | INFO     | servicios | Servicio creado: Equipo 'Portatil Dell' (Portatil) - $15,000/h + deposito
+2026-11-23 22:29:14,514 | INFO     | servicios | Servicio creado: Asesoria 'Asesoria BI' en Power BI (nivel senior) - $120,000/h
+2026-11-23 22:29:14,514 | INFO     | main | === Simulacion 4: Creacion incorrecta de servicios ===
+2026-11-23 22:29:14,514 | ERROR    | sistema | Crear servicio ReservaSala 'Sala Fantasma' FALLIDA -> [FJ-100] Dato invalido en 'tarifa_hora': debe ser un numero mayor que cero
+2026-11-23 22:29:14,514 | ERROR    | sistema | Crear servicio AsesoriaEspecializada 'Asesoria X' FALLIDA -> [FJ-100] Dato invalido en 'nivel': debe ser uno de ['junior', 'senior', 'experto']
+2026-11-23 22:29:14,514 | ERROR    | sistema | Crear servicio ReservaSala 'Sala Mini' FALLIDA -> [FJ-100] Dato invalido en 'capacidad': debe ser un entero positivo
+2026-11-23 22:29:14,514 | INFO     | main | === Simulacion 5: Reserva exitosa: confirmar y procesar ===
+2026-11-23 22:29:14,514 | INFO     | reserva | Reserva #12 creada: Ana Torres -> Sala Bogota (4 h)
+2026-11-23 22:29:14,514 | INFO     | reserva | Reserva #12 CONFIRMADA. Costo: $380,800.00
+2026-11-23 22:29:14,514 | INFO     | reserva | Reserva #12 PROCESADA correctamente
+2026-11-23 22:29:14,514 | INFO     | reserva | Reserva #12: fin del procesamiento (estado PROCESADA)
+2026-11-23 22:29:14,514 | INFO     | main | === Simulacion 6: Costo con descuento y sin impuesto (sobrecarga) ===
+2026-11-23 22:29:14,514 | INFO     | reserva | Reserva #13 creada: Luis Pardo -> Asesoria BI (2 h)
+2026-11-23 22:29:14,514 | INFO     | reserva | Reserva #13 CONFIRMADA. Costo: $324,000.00
+2026-11-23 22:29:14,514 | INFO     | main | === Simulacion 7: Reserva con duracion invalida ===
+2026-11-23 22:29:14,514 | ERROR    | sistema | Crear reserva Ana Torres -> Asesoria BI (10 h) FALLIDA -> [FJ-300] Reserva invalida: duracion no permitida para Asesoria BI | causa: [FJ-100] Dato invalido en 'horas': una asesoria dura entre 1 y 6 horas
+2026-11-23 22:29:14,514 | INFO     | main | === Simulacion 8: Reserva con cliente invalido ===
+2026-11-23 22:29:14,514 | ERROR    | sistema | Crear reserva None -> Portatil Dell (5 h) FALLIDA -> [FJ-300] Reserva invalida: el cliente no es valido
+2026-11-23 22:29:14,514 | INFO     | main | === Simulacion 9: Servicio no disponible ===
+2026-11-23 22:29:14,514 | INFO     | reserva | Reserva #16 creada: Luis Pardo -> Portatil Dell (24 h)
+2026-11-23 22:29:14,514 | WARNING  | servicios | Servicio deshabilitado: Portatil Dell
+2026-11-23 22:29:14,514 | ERROR    | sistema | Confirmar reserva #16 FALLIDA -> [FJ-200] El servicio 'Portatil Dell' no esta disponible
+2026-11-23 22:29:14,514 | INFO     | servicios | Servicio habilitado: Portatil Dell
+2026-11-23 22:29:14,514 | INFO     | reserva | Reserva #16 CONFIRMADA. Costo: $487,900.00
+2026-11-23 22:29:14,514 | INFO     | main | === Simulacion 10: Calculo inconsistente (descuento excesivo) ===
+2026-11-23 22:29:14,514 | INFO     | reserva | Reserva #17 creada: Ana Torres -> Portatil Dell (8 h)
+2026-11-23 22:29:14,514 | ERROR    | reserva | Reserva #17: error de calculo -> [FJ-400] Calculo inconsistente: descuento fuera de rango (0.8)
+2026-11-23 22:29:14,514 | ERROR    | sistema | Confirmar reserva #17 FALLIDA -> [FJ-300] Reserva invalida: no fue posible calcular el costo | causa: [FJ-400] Calculo inconsistente: descuento fuera de rango (0.8)
+2026-11-23 22:29:14,514 | INFO     | main | === Simulacion 11: Operaciones no permitidas sobre una reserva ===
+2026-11-23 22:29:14,514 | INFO     | reserva | Reserva #17 CANCELADA. Motivo: cliente desiste
+2026-11-23 22:29:14,514 | INFO     | reserva | Reserva #17: fin del intento de cancelacion
+2026-11-23 22:29:14,514 | ERROR    | reserva | Reserva #17: intento de cancelacion no permitido (estado CANCELADA)
+2026-11-23 22:29:14,514 | INFO     | reserva | Reserva #17: fin del intento de cancelacion
+2026-11-23 22:29:14,514 | ERROR    | sistema | Cancelar reserva #17 FALLIDA -> [FJ-310] No se permite 'cancelar' cuando la reserva esta en estado 'CANCELADA'
+2026-11-23 22:29:14,514 | ERROR    | reserva | Reserva #17: no se pudo procesar -> [FJ-310] No se permite 'procesar' cuando la reserva esta en estado 'CANCELADA'
+2026-11-23 22:29:14,514 | INFO     | reserva | Reserva #17: fin del procesamiento (estado CANCELADA)
+2026-11-23 22:29:14,514 | ERROR    | sistema | Procesar reserva #17 FALLIDA -> [FJ-300] Reserva invalida: la reserva #17 no pudo procesarse | causa: [FJ-310] No se permite 'procesar' cuando la reserva esta en estado 'CANCELADA'
+2026-11-23 22:29:14,515 | INFO     | main | === Simulacion 12: Procesar sin confirmar / confirmar reserva inexistente ===
+2026-11-23 22:29:14,515 | INFO     | reserva | Reserva #18 creada: Luis Pardo -> Sala Bogota (9 h)
+2026-11-23 22:29:14,515 | ERROR    | reserva | Reserva #18: no se pudo procesar -> [FJ-310] No se permite 'procesar' cuando la reserva esta en estado 'PENDIENTE'
+2026-11-23 22:29:14,515 | INFO     | reserva | Reserva #18: fin del procesamiento (estado PENDIENTE)
+2026-11-23 22:29:14,515 | ERROR    | sistema | Procesar reserva #18 FALLIDA -> [FJ-300] Reserva invalida: la reserva #18 no pudo procesarse | causa: [FJ-310] No se permite 'procesar' cuando la reserva esta en estado 'PENDIENTE'
+2026-11-23 22:29:14,515 | WARNING  | sistema | Se intento confirmar una reserva inexistente
+2026-11-23 22:29:14,515 | INFO     | reserva | Reserva #18 CONFIRMADA. Costo: $942,480.00
+2026-11-23 22:29:14,515 | INFO     | reserva | Reserva #18 PROCESADA correctamente
+2026-11-23 22:29:14,515 | INFO     | reserva | Reserva #18: fin del procesamiento (estado PROCESADA)
+2026-11-23 22:29:14,515 | INFO     | sistema | Resumen: 17 exitos, 14 fallos controlados
+2026-11-23 22:29:14,515 | INFO     | main | ========== FIN DE EJECUCION SOFTWARE FJ ==========
+2026-11-23 22:30:02,577 | INFO     | main | ========== INICIO DE EJECUCION SOFTWARE FJ ==========
+2026-11-23 22:30:02,577 | INFO     | main | === Simulacion 1: Registro de clientes validos ===
+2026-11-23 22:30:02,577 | INFO     | entidades | Cliente registrado: Ana Torres (doc 1023456789)
+2026-11-23 22:30:02,577 | INFO     | entidades | Cliente registrado: Luis Pardo (doc 80123456)
+2026-11-23 22:30:02,577 | INFO     | main | === Simulacion 2: Registro de clientes invalidos ===
+2026-11-23 22:30:02,577 | ERROR    | sistema | Registrar cliente Carlos Ruiz FALLIDA -> [FJ-100] Dato invalido en 'correo': formato no valido (carlos-arroba-mail)
+2026-11-23 22:30:02,577 | ERROR    | sistema | Registrar cliente Maria Gil FALLIDA -> [FJ-100] Dato invalido en 'documento': debe tener entre 6 y 10 digitos
+2026-11-23 22:30:02,577 | ERROR    | sistema | Registrar cliente None FALLIDA -> [FJ-110] Falta el parametro obligatorio 'nombre'
+2026-11-23 22:30:02,577 | INFO     | main | === Simulacion 3: Creacion correcta de servicios ===
+2026-11-23 22:30:02,577 | INFO     | servicios | Servicio creado: Sala 'Sala Bogota' (cap. 12) - $80,000/h
+2026-11-23 22:30:02,577 | INFO     | servicios | Servicio creado: Equipo 'Portatil Dell' (Portatil) - $15,000/h + deposito
+2026-11-23 22:30:02,577 | INFO     | servicios | Servicio creado: Asesoria 'Asesoria BI' en Power BI (nivel senior) - $120,000/h
+2026-11-23 22:30:02,577 | INFO     | main | === Simulacion 4: Creacion incorrecta de servicios ===
+2026-11-23 22:30:02,577 | ERROR    | sistema | Crear servicio ReservaSala 'Sala Fantasma' FALLIDA -> [FJ-100] Dato invalido en 'tarifa_hora': debe ser un numero mayor que cero
+2026-11-23 22:30:02,578 | ERROR    | sistema | Crear servicio AsesoriaEspecializada 'Asesoria X' FALLIDA -> [FJ-100] Dato invalido en 'nivel': debe ser uno de ['junior', 'senior', 'experto']
+2026-11-23 22:30:02,578 | ERROR    | sistema | Crear servicio ReservaSala 'Sala Mini' FALLIDA -> [FJ-100] Dato invalido en 'capacidad': debe ser un entero positivo
+2026-11-23 22:30:02,578 | INFO     | main | === Simulacion 5: Reserva exitosa: confirmar y procesar ===
+2026-11-23 22:30:02,578 | INFO     | reserva | Reserva #12 creada: Ana Torres -> Sala Bogota (4 h)
+2026-11-23 22:30:02,578 | INFO     | reserva | Reserva #12 CONFIRMADA. Costo: $380,800.00
+2026-11-23 22:30:02,578 | INFO     | reserva | Reserva #12 PROCESADA correctamente
+2026-11-23 22:30:02,578 | INFO     | reserva | Reserva #12: fin del procesamiento (estado PROCESADA)
+2026-11-23 22:30:02,578 | INFO     | main | === Simulacion 6: Costo con descuento y sin impuesto (sobrecarga) ===
+2026-11-23 22:30:02,578 | INFO     | reserva | Reserva #13 creada: Luis Pardo -> Asesoria BI (2 h)
+2026-11-23 22:30:02,578 | INFO     | reserva | Reserva #13 CONFIRMADA. Costo: $324,000.00
+2026-11-23 22:30:02,578 | INFO     | main | === Simulacion 7: Reserva con duracion invalida ===
+2026-11-23 22:30:02,578 | ERROR    | sistema | Crear reserva Ana Torres -> Asesoria BI (10 h) FALLIDA -> [FJ-300] Reserva invalida: duracion no permitida para Asesoria BI | causa: [FJ-100] Dato invalido en 'horas': una asesoria dura entre 1 y 6 horas
+2026-11-23 22:30:02,578 | INFO     | main | === Simulacion 8: Reserva con cliente invalido ===
+2026-11-23 22:30:02,578 | ERROR    | sistema | Crear reserva None -> Portatil Dell (5 h) FALLIDA -> [FJ-300] Reserva invalida: el cliente no es valido
+2026-11-23 22:30:02,578 | INFO     | main | === Simulacion 9: Servicio no disponible ===
+2026-11-23 22:30:02,578 | INFO     | reserva | Reserva #16 creada: Luis Pardo -> Portatil Dell (24 h)
+2026-11-23 22:30:02,578 | WARNING  | servicios | Servicio deshabilitado: Portatil Dell
+2026-11-23 22:30:02,578 | ERROR    | sistema | Confirmar reserva #16 FALLIDA -> [FJ-200] El servicio 'Portatil Dell' no esta disponible
+2026-11-23 22:30:02,578 | INFO     | servicios | Servicio habilitado: Portatil Dell
+2026-11-23 22:30:02,578 | INFO     | reserva | Reserva #16 CONFIRMADA. Costo: $487,900.00
+2026-11-23 22:30:02,578 | INFO     | main | === Simulacion 10: Calculo inconsistente (descuento excesivo) ===
+2026-11-23 22:30:02,578 | INFO     | reserva | Reserva #17 creada: Ana Torres -> Portatil Dell (8 h)
+2026-11-23 22:30:02,578 | ERROR    | reserva | Reserva #17: error de calculo -> [FJ-400] Calculo inconsistente: descuento fuera de rango (0.8)
+2026-11-23 22:30:02,578 | ERROR    | sistema | Confirmar reserva #17 FALLIDA -> [FJ-300] Reserva invalida: no fue posible calcular el costo | causa: [FJ-400] Calculo inconsistente: descuento fuera de rango (0.8)
+2026-11-23 22:30:02,578 | INFO     | main | === Simulacion 11: Operaciones no permitidas sobre una reserva ===
+2026-11-23 22:30:02,578 | INFO     | reserva | Reserva #17 CANCELADA. Motivo: cliente desiste
+2026-11-23 22:30:02,578 | INFO     | reserva | Reserva #17: fin del intento de cancelacion
+2026-11-23 22:30:02,578 | ERROR    | reserva | Reserva #17: intento de cancelacion no permitido (estado CANCELADA)
+2026-11-23 22:30:02,578 | INFO     | reserva | Reserva #17: fin del intento de cancelacion
+2026-11-23 22:30:02,578 | ERROR    | sistema | Cancelar reserva #17 FALLIDA -> [FJ-310] No se permite 'cancelar' cuando la reserva esta en estado 'CANCELADA'
+2026-11-23 22:30:02,578 | ERROR    | reserva | Reserva #17: no se pudo procesar -> [FJ-310] No se permite 'procesar' cuando la reserva esta en estado 'CANCELADA'
+2026-11-23 22:30:02,578 | INFO     | reserva | Reserva #17: fin del procesamiento (estado CANCELADA)
+2026-11-23 22:30:02,578 | ERROR    | sistema | Procesar reserva #17 FALLIDA -> [FJ-300] Reserva invalida: la reserva #17 no pudo procesarse | causa: [FJ-310] No se permite 'procesar' cuando la reserva esta en estado 'CANCELADA'
+2026-11-23 22:30:02,578 | INFO     | main | === Simulacion 12: Procesar sin confirmar / confirmar reserva inexistente ===
+2026-11-23 22:30:02,578 | INFO     | reserva | Reserva #18 creada: Luis Pardo -> Sala Bogota (9 h)
+2026-11-23 22:30:02,578 | ERROR    | reserva | Reserva #18: no se pudo procesar -> [FJ-310] No se permite 'procesar' cuando la reserva esta en estado 'PENDIENTE'
+2026-11-23 22:30:02,578 | INFO     | reserva | Reserva #18: fin del procesamiento (estado PENDIENTE)
+2026-11-23 22:30:02,578 | ERROR    | sistema | Procesar reserva #18 FALLIDA -> [FJ-300] Reserva invalida: la reserva #18 no pudo procesarse | causa: [FJ-310] No se permite 'procesar' cuando la reserva esta en estado 'PENDIENTE'
+2026-11-23 22:30:02,578 | WARNING  | sistema | Se intento confirmar una reserva inexistente
+2026-11-23 22:30:02,578 | INFO     | reserva | Reserva #18 CONFIRMADA. Costo: $942,480.00
+2026-11-23 22:30:02,578 | INFO     | reserva | Reserva #18 PROCESADA correctamente
+2026-11-23 22:30:02,578 | INFO     | reserva | Reserva #18: fin del procesamiento (estado PROCESADA)
+2026-11-23 22:30:02,578 | INFO     | sistema | Resumen: 17 exitos, 14 fallos controlados
+2026-11-23 22:30:02,578 | INFO     | main | ========== FIN DE EJECUCION SOFTWARE FJ ==========
